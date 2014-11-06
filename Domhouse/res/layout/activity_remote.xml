@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.domhouse.Remote" >
+
+    <EditText
+        android:id="@+id/UserEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/user_hint"
+        android:inputType="text"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/UserEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordEditText"
+        android:layout_alignLeft="@+id/passwordEditText"
+        android:layout_alignRight="@+id/passwordEditText"
+        android:layout_alignEnd="@+id/passwordEditText"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/login_button_text" />
+
+    <!-- Forgot Password? TextView -->
+
+    <TextView
+        android:id="@+id/forgotpasswordtextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignStart="@+id/loginButton"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/forgot_password_textview"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:id="@+id/dontHaveAccountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/forgotpasswordtextView"
+        android:layout_alignBottom="@+id/forgotpasswordtextView"
+        android:layout_alignEnd="@+id/loginButton"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="@string/donthave_account_textview"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:id="@+id/wrongpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/forgotpasswordtextView"
+        android:layout_alignStart="@+id/forgotpasswordtextView"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_alignEnd="@+id/loginButton"
+        android:layout_below="@+id/forgotpasswordtextView"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:visibility="invisible"
+        android:text="@string/wrong_password" />
+    
+
+</RelativeLayout>
