@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Domhouse</string>
+    <string name="login_button_text">Se Connecter</string>
+    <string name="action_settings">Settings</string>
+    <string name="user_hint">Nom d\'utilisateur </string>
+    <string name="password_hint">Mot de Passe</string>
+
+    <color name="black">#000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="red">#FF0000</color>
+
+    <string name="btn_connection">Connexion en cours</string>
+    <string name="wrong_password">Identitée non reconnue.</string>
+    <string name="forgot_password_textview">Mot de passe oublié ?</string>
+    <string name="forgot_password_textview_html">&lt;a href=&quot;http://domhouse.zapto.org/&quot;&gt;Mot de passe oublié ?&lt;/a&gt;</string>
+    <string name="donthave_account_textview">Pas de compte ?</string>
+    <string name="donthave_account_textview_html">&lt;a href=&quot;http://domhouse.zapto.org/&quot;&gt;Pas de Compte ?&lt;/a&gt;</string>
+    <string name="title_activity_remote_tab">Domhouse</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="logo_img">Logo et nom DomHouse</string>
+    <string name="title_activity_remote">Remote</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="textview">TextView</string>
+    <string name="title_activity_test">DomHouse</string>
+
+</resources>
