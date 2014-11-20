@@ -92,5 +92,20 @@
         android:textColor="@color/red"
         android:visibility="invisible"
         android:text="@string/wrong_password" />
+    
+    <TextView
+        android:id="@+id/noConnection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/forgotpasswordtextView"
+        android:layout_alignStart="@+id/forgotpasswordtextView"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_alignEnd="@+id/loginButton"
+        android:layout_below="@+id/forgotpasswordtextView"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:visibility="invisible"
+        android:text="@string/no_connectionno_connection" />
 
 </RelativeLayout>

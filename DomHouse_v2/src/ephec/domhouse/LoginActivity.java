@@ -3,14 +3,18 @@ package ephec.domhouse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 //import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,7 +51,9 @@ public class LoginActivity extends Activity {
     	
 		@Override
 		public void onClick(View v) {
-			
+			/*if(!isNetworkAvailable()){
+    	    	
+    	    }*/
 	    	
 	    	account = new AccountManager();
 	    	Thread thread = new Thread(new Runnable(){
@@ -87,23 +93,37 @@ public class LoginActivity extends Activity {
 		}
     	
     };
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		/*if (id == R.id.action_settings) {
-			return true;
-		}*/
-		return super.onOptionsItemSelected(item);
-	}
+    // https://code.google.com/p/android-drwable/source/browse/trunk/IsNetWorkAvailable/src/com/example/IsNetworkAvailable/IsNetworkAvailable.java?r=10
+    public static boolean isNetworkAvailable( Activity mActivity ) 
+    { 
+            Context context = mActivity.getApplicationContext();
+            ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            
+            if (connectivity == null){   
+            	Log.d("isNetworkAvailable"," connectivity == null");
+            	return false;
+            } else {  
+            	Log.d("isNetworkAvailable"," connectivity != null");
+          
+          NetworkInfo[] info = connectivity.getAllNetworkInfo();   
+          if (info == null){
+        	  Log.d("isNetworkAvailable"," info == null");
+        	  return false;
+          } else {   
+                  Log.d("isNetworkAvailable"," info != null");
+                  for (int i = 0; i <info.length; i++) 
+                  { 
+                          if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                          {
+                                  return true; 
+                          }
+                          else
+                                  Log.d("isNetworkAvailable"," info["+i+"] != connected");
+                  }
+                  return false;
+           } 
+                  
+       }   
+            
+   } 
 }

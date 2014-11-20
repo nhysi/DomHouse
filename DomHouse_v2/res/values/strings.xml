@@ -29,5 +29,6 @@
     <string name="action_example">Example action</string>
     <string name="textview">TextView</string>
     <string name="title_activity_test">DomHouse</string>
+    <string name="no_connection">Aucun accès à internet n\'est disponible.</string>
 
 </resources>
