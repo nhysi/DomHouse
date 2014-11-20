@@ -22,11 +22,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
-
 	Button login = null;
 	EditText username = null;
 	EditText password = null;
 	TextView wrongPass = null;
+	TextView noConnection = null;
 	public final static String EXTRA_MESSAGE = "remote.MESSAGE";
 	AccountManager account;
 	
@@ -34,6 +34,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
 		
 		login = (Button)findViewById(R.id.loginButton);
         username = (EditText)findViewById(R.id.UserEditText);
@@ -51,42 +52,48 @@ public class LoginActivity extends Activity {
     	
 		@Override
 		public void onClick(View v) {
-			/*if(!isNetworkAvailable()){
-    	    	
-    	    }*/
+			wrongPass = (TextView)findViewById(R.id.wrongpwd);
+			noConnection = (TextView)findViewById(R.id.noConnection);
+			wrongPass.setVisibility(View.INVISIBLE);
+			noConnection.setVisibility(View.INVISIBLE);
+			if(!isNetworkAvailable(LoginActivity.this)){
+				noConnection.setVisibility(View.VISIBLE);
+    	    } else {
+    	    	account = new AccountManager();
+    	    	Thread thread = new Thread(new Runnable(){
+    	    	    @Override
+    	    	    public void run() {
+    	    	        try {
+    	    	        	String user = username.getText().toString();
+    	    		    	String pass = password.getText().toString();
+    	    	        	JSONObject r = account.login(user, pass);
+    	    	        	
+    	    	        	try {
+    	    					if(r.getBoolean("success")){
+    	    						wrongPass.setVisibility(View.INVISIBLE);
+    	    						// Authentification OK, changement d'activity
+    	    						System.out.println("auth : OK !");
+    	    						
+    	    						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+    	    					    intent.putExtra(EXTRA_MESSAGE, user);
+    	    					    startActivity(intent);
+    	    					}else{
+    	    						wrongPass.setVisibility(View.VISIBLE);
+    	    						System.out.println("Wrong pwd");
+    	    					}
+    	    				} catch (JSONException e) {
+    	    					// TODO Auto-generated catch block
+    	    					e.printStackTrace();
+    	    				}
+    	    	        } catch (Exception e) {
+    	    	            e.printStackTrace();
+    	    	        }
+    	    	    }
+    	    	});
+    	    	thread.start(); 
+    	    }
 	    	
-	    	account = new AccountManager();
-	    	Thread thread = new Thread(new Runnable(){
-	    	    @Override
-	    	    public void run() {
-	    	        try {
-	    	        	String user = username.getText().toString();
-	    		    	String pass = password.getText().toString();
-	    	        	JSONObject r = account.login(user, pass);
-	    	        	wrongPass = (TextView)findViewById(R.id.wrongpwd);
-	    	        	try {
-	    					if(r.getBoolean("success")){
-	    						wrongPass.setVisibility(View.INVISIBLE);
-	    						// Authentification OK, changement d'activity
-	    						System.out.println("auth : OK !");
-	    						
-	    						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-	    					    intent.putExtra(EXTRA_MESSAGE, user);
-	    					    startActivity(intent);
-	    					}else{
-	    						wrongPass.setVisibility(View.VISIBLE);
-	    						System.out.println("Wrong pwd");
-	    					}
-	    				} catch (JSONException e) {
-	    					// TODO Auto-generated catch block
-	    					e.printStackTrace();
-	    				}
-	    	        } catch (Exception e) {
-	    	            e.printStackTrace();
-	    	        }
-	    	    }
-	    	});
-	    	thread.start(); 
+	    	
 	    
 	    	
 			

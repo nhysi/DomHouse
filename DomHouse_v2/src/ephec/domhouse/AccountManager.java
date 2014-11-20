@@ -24,7 +24,7 @@ public class AccountManager {
      * */
     public JSONObject login(String name, String password){
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", "test"));
+        params.add(new BasicNameValuePair("tag", "login"));
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("password", password));
         return web.getFromURL(URL, params);
