@@ -3,8 +3,13 @@ package ephec.domhouse;
 import java.util.ArrayList;
 import java.util.List;
  
+
+
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
  
 public class AccountManager {
@@ -29,7 +34,21 @@ public class AccountManager {
         params.add(new BasicNameValuePair("password", password));
         return web.getFromURL(URL, params);
     }
-
+    
+    public ArrayList<Equipement> getEquipement(String room) throws JSONException{
+    	JSONArray a;
+    	ArrayList<Equipement> r;
+    	List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "getDevice"));
+        params.add(new BasicNameValuePair("room", room));
+        JSONObject e = web.getFromURL(URL, params);
+        //e.toJSONArray(a);
+        for(int i = 0; i< e.length(); i++){
+        	//a.get(i);
+        }
+        return null;
+        
+    }
     /**
      * Function get Login status
      * 

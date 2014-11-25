@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     setContentView(R.layout.activity_main);
    
         menu = new String[]{"Salon","Garage","Salle à manger","Salle de bain","Toilettes"};
-        //Prendre le nom des pi�ces dans la db
+        //Prendre le nom des pièces dans la db
           dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
           dList = (ListView) findViewById(R.id.left_drawer);
           adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menu);
