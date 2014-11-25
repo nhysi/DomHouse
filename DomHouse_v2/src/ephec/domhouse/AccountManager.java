@@ -47,7 +47,6 @@ public class AccountManager {
         	//a.get(i);
         }
         return null;
-        
     }
     /**
      * Function get Login status
