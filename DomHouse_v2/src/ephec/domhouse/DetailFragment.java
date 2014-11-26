@@ -1,10 +1,14 @@
 package ephec.domhouse;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
+import org.json.JSONException;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +53,34 @@ public class DetailFragment extends Fragment {
         
         return view;
     }
-	private void chargementEquipements(String nomPiece) {
+	private void chargementEquipements(final String nomPiece) {
 		//Pour chaque equipement, créé une instance de Equipement et ajoute cette instance 
 		//ˆ l'arrayList equip
-		if(nomPiece.equals("Salon")){
+		final CountDownLatch latch = new CountDownLatch(1);
+	    final int[] value = new int[1];
+	    Thread uiThread = new HandlerThread("UIHandler"){
+	        @Override
+	        public void run(){
+	            value[0] = 2;
+	            AccountManager account = new AccountManager();
+	            try {
+					equip = account.getEquipement(nomPiece);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            latch.countDown(); // Release await() in the test thread.
+	        }
+	    };
+	    uiThread.start();
+	    try {
+			latch.await();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    
+		/*if(nomPiece.equals("Salon")){
 			Equipement tv = new Equipement("Télévision", true);
 			equip.add(tv);
 			Equipement lampe = new Equipement("Lampe", false);
@@ -72,7 +100,7 @@ public class DetailFragment extends Fragment {
 			equip.add(lampe);
 			Equipement ventilo = new Equipement("Lampe Secondaire", true);
 			equip.add(ventilo);
-		}
+		}*/
 		
 	}
 }

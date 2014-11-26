@@ -24,4 +24,7 @@ public class Equipement {
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
+	public String toString(){
+		return nom;
+	}
 }

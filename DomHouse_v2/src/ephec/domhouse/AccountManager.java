@@ -7,11 +7,14 @@ import java.util.List;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.os.Parcelable;
  
 public class AccountManager {
      
@@ -37,22 +40,22 @@ public class AccountManager {
     }
     
     public ArrayList<Equipement> getEquipement(String room) throws JSONException{
-    	JSONArray a;
     	ArrayList<Equipement> r = new ArrayList<Equipement>();
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", "getDevice"));
         params.add(new BasicNameValuePair("room", room));
         JSONObject e = web.getFromURL(URL, params);
         //System.out.println(e.toString());
-        JSONArray recs = e.getJSONArray(room);
+        JSONArray recs = e.getJSONArray("room");
         for (int i = 0; i < recs.length(); ++i) {
             JSONObject rec = recs.getJSONObject(i);
             //int pin = rec.getInt("pin");
-            String name = rec.getString("name");
-            boolean value = rec.getBoolean("value");
+            String name = rec.optString("name");
+            boolean value = rec.optBoolean("value");
             r.add(new Equipement(name, value));
         }
-        return null;
+        System.out.println(r.get(1).toString());
+        return r;
     }
     /**
      

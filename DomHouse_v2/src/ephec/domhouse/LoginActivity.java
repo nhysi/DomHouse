@@ -4,6 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
+
+
 //import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -14,7 +17,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -67,7 +69,6 @@ public class LoginActivity extends Activity {
     	    	        	String user = username.getText().toString();
     	    		    	String pass = password.getText().toString();
     	    	        	JSONObject r = account.login(user, pass);
-    	    	        	account.getEquipement("Salon");
     	    	        	try {
     	    					if(r.getBoolean("success")){
     	    						wrongPass.setVisibility(View.INVISIBLE);
@@ -75,7 +76,6 @@ public class LoginActivity extends Activity {
     	    						System.out.println("auth : OK !");
     	    						
     	    						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-    	    					    intent.putExtra(EXTRA_MESSAGE, user);
     	    					    startActivity(intent);
     	    					}else{
     	    						wrongPass.setVisibility(View.VISIBLE);
