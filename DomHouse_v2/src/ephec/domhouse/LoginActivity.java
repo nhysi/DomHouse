@@ -67,7 +67,7 @@ public class LoginActivity extends Activity {
     	    	        	String user = username.getText().toString();
     	    		    	String pass = password.getText().toString();
     	    	        	JSONObject r = account.login(user, pass);
-    	    	        	
+    	    	        	account.getEquipement("Salon");
     	    	        	try {
     	    					if(r.getBoolean("success")){
     	    						wrongPass.setVisibility(View.INVISIBLE);

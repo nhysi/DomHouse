@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -37,20 +38,24 @@ public class AccountManager {
     
     public ArrayList<Equipement> getEquipement(String room) throws JSONException{
     	JSONArray a;
-    	ArrayList<Equipement> r;
+    	ArrayList<Equipement> r = new ArrayList<Equipement>();
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", "getDevice"));
         params.add(new BasicNameValuePair("room", room));
         JSONObject e = web.getFromURL(URL, params);
-        //e.toJSONArray(a);
-        for(int i = 0; i< e.length(); i++){
-        	//a.get(i);
+        //System.out.println(e.toString());
+        JSONArray recs = e.getJSONArray(room);
+        for (int i = 0; i < recs.length(); ++i) {
+            JSONObject rec = recs.getJSONObject(i);
+            //int pin = rec.getInt("pin");
+            String name = rec.getString("name");
+            boolean value = rec.getBoolean("value");
+            r.add(new Equipement(name, value));
         }
         return null;
     }
     /**
-     * Function get Login status
-     * 
+     
     public boolean isUserLoggedIn(Context context){
         DatabaseHandler db = new DatabaseHandler(context);
         int count = db.getRowCount();
@@ -62,9 +67,7 @@ public class AccountManager {
     }*/
      
     /**
-     * Function to logout user
-     * Reset Database
-     * 
+    
     public boolean logoutUser(Context context){
         DatabaseHandler db = new DatabaseHandler(context);
         db.resetTables();
