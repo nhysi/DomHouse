@@ -39,5 +39,6 @@ public class MainActivity extends Activity {
           fragmentManager.beginTransaction().replace(R.id.content_frame, detail).commit();
         }
           });
+          dLayout.openDrawer(dList);
   }
 }
