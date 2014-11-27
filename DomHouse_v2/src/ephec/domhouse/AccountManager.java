@@ -20,7 +20,7 @@ public class AccountManager {
      
     private Web web;
      
-    private static String URL = "http://www.nhysi.com/api/";
+    private static String URL = "http://www.nhysi.com/api/";// http://domhouse.zapto.org:82/Raspberry/api.php
      
     public AccountManager(){
         web = new Web();
@@ -49,13 +49,21 @@ public class AccountManager {
         JSONArray recs = e.getJSONArray("room");
         for (int i = 0; i < recs.length(); ++i) {
             JSONObject rec = recs.getJSONObject(i);
-            //int pin = rec.getInt("pin");
+            int pin = rec.optInt("pin");
             String name = rec.optString("name");
             boolean value = rec.optBoolean("value");
-            r.add(new Equipement(name, value));
+            r.add(new Equipement(name, value,pin));
         }
         System.out.println(r.get(1).toString());
         return r;
+    }
+    
+    public void setPin(int pin,int state){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "setDevice"));
+        params.add(new BasicNameValuePair("pin", Integer.toString(pin)));
+        params.add(new BasicNameValuePair("value", Integer.toString(state)));
+        web.getFromURL(URL, params);
     }
     /**
      

@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
    
-        menu = new String[]{"Salon","Garage","Salle à manger","Salle de bain","Toilettes"};
+        menu = new String[]{"Salon Demo","Chambre","Garage Demo","Salle à manger Demo","Salle de bain Demo","Toilettes Demo"};
         //Prendre le nom des pièces dans la db
           dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
           dList = (ListView) findViewById(R.id.left_drawer);
