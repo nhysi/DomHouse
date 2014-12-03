@@ -38,7 +38,7 @@ public class DetailFragment extends Fragment {
 
 		LinearLayout ll = (LinearLayout) view.findViewById(R.id.linLay);
 		for (int i=0; i<equip.size(); i++) {
-			//if(equip.get(i).isVisible()){
+
 				if(!equip.get(i).isModifiable()){ //Si l'Žquipement n'est pas modifiable, on crŽe un textview ˆ la place d'un switch
 					TextView textview1 = new TextView(context);
 					textview1.setText(equip.get(i).getNom());
@@ -47,7 +47,7 @@ public class DetailFragment extends Fragment {
 					if(equip.get(i).isEtat()) textview1.setTextColor(Color.parseColor("#07A671"));
 					else textview1.setTextColor(Color.parseColor("#A6073C"));
 					ll.addView(textview1); // Attache le textview au layout parent
-				/*}
+				}
 				else{
 					Switch switch1 = new Switch(context);
 					switch1.setText(equip.get(i).getNom());
@@ -60,8 +60,7 @@ public class DetailFragment extends Fragment {
 					else switch1.setChecked(false);
 					ll.addView(switch1); // Attache le Switch au layout parent
 					//ajouter un listener
-				}*/
-			}
+				}
 		}
 
 		return view;
