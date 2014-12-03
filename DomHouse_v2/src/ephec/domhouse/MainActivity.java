@@ -71,29 +71,12 @@ public class MainActivity extends Activity {
 	}
 	public void importerPieces(){
 //import du nom de toutes les  pièces et stockage dans menuList
-		
-		final CountDownLatch latch = new CountDownLatch(1);
-	    final int[] value = new int[1];
-	    Thread uiThread = new HandlerThread("UIHandler"){
-	        @Override
-	        public void run(){
-	            value[0] = 2;
-	            AccountManager account = new AccountManager();
-	            try {
-	        		menuList = 	account.getRoom();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            latch.countDown(); // Release await() in the test thread.
-	        }
-	    };
-	    uiThread.start();
-	    try {
-			latch.await();
-		} catch (InterruptedException e1) {
+		AccountManager account = new AccountManager();
+		try {
+			menuList = 	account.getRoom();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	@Override

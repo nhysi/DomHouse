@@ -66,40 +66,30 @@ public class LoginActivity extends Activity {
 				noConnection.setVisibility(View.VISIBLE);
     	    } else {
     	    	account = new AccountManager();
-    	    	Thread thread = new Thread(new Runnable(){
-    	    	    @Override
-    	    	    public void run() {
-    	    	        try {
-    	    	        	String user = username.getText().toString();
-    	    		    	String pass = password.getText().toString();
-    	    	        	JSONObject r = account.login(user, pass);
-    	    	        	try {
-    	    					if(r.getBoolean("success")){
-    	    						wrongPass.setVisibility(View.INVISIBLE);
-    	    						// Authentification OK, changement d'activity
-    	    						System.out.println("auth : OK !");
-    	    						
-    	    						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-    	    					    startActivity(intent);
-    	    					}else{
-    	    						wrongPass.setVisibility(View.VISIBLE);
-    	    						System.out.println("Wrong pwd");
-    	    					}
-    	    				} catch (JSONException e) {
-    	    					// TODO Auto-generated catch block
-    	    					e.printStackTrace();
-    	    				}
-    	    	        } catch (Exception e) {
-    	    	            e.printStackTrace();
-    	    	        }
-    	    	    }
-    	    	});
-    	    	thread.start(); 
+    	    	String user = username.getText().toString();
+		    	String pass = password.getText().toString();
+	        	JSONObject r = account.login(user, pass);
+    	    					try {
+									if(r.getBoolean("success")){
+										wrongPass.setVisibility(View.INVISIBLE);
+										// Authentification OK, changement d'activity
+										System.out.println("auth : OK !");
+										
+										Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+									    startActivity(intent);
+									}else{
+										wrongPass.setVisibility(View.VISIBLE);
+										System.out.println("Wrong pwd");
+									}
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+    	    				
     	    }
 	    	
 	    	
 	    
-	    	
 			
 		}
     	

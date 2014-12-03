@@ -9,19 +9,23 @@ import java.util.List;
 
 
 
+import java.util.concurrent.CountDownLatch;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.HandlerThread;
 import android.os.Parcelable;
  
 public class AccountManager {
      
     private Web web;
+    private JSONObject e;
      
-    private static String URL = "http://www.nhysi.com/api/";// http://domhouse.zapto.org:82/Raspberry/api.php
+    public String URL = "http://www.nhysi.com/api/";// http://domhouse.zapto.org:82/Raspberry/api.php
      
     public AccountManager(){
         web = new Web();
@@ -37,7 +41,7 @@ public class AccountManager {
         params.add(new BasicNameValuePair("tag", "login"));
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("password", password));
-        return web.getFromURL(URL, params);
+        return ask(URL, params);
     }
     
     public ArrayList<Equipement> getEquipement(String room) throws JSONException{
@@ -45,7 +49,8 @@ public class AccountManager {
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", "getDevice"));
         params.add(new BasicNameValuePair("room", room));
-        JSONObject e = web.getFromURL(URL, params);
+       
+        e = ask(URL, params);
         //System.out.println(e.toString());
         JSONArray recs = e.getJSONArray("room");
         for (int i = 0; i < recs.length(); ++i) {
@@ -56,20 +61,22 @@ public class AccountManager {
             boolean editable = rec.optBoolean("editable");
             r.add(new Equipement(name, value,pin,editable));
         }
-        System.out.println(r.get(1).toString());
+        //System.out.println(r.get(1).toString());
         return r;
     }
     public ArrayList<String> getRoom() throws JSONException{
     	ArrayList<String> menuList = new ArrayList<String>();
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", "getRoom"));
-        JSONObject e = web.getFromURL(URL, params);
-        //System.out.println(e.toString());
+        
+        e = ask(URL, params);
+		//System.out.println(e.toString());
         JSONArray recs = e.getJSONArray("room");
         for (int i = 0; i < recs.length(); ++i) {
             JSONObject rec = recs.getJSONObject(i);
             menuList.add(rec.optString("name"));
         }
+      //System.out.println(menuList);
     	return menuList;
     }
     public void setPin(int pin,int state){
@@ -77,20 +84,26 @@ public class AccountManager {
         params.add(new BasicNameValuePair("tag", "setDevice"));
         params.add(new BasicNameValuePair("pin", Integer.toString(pin)));
         params.add(new BasicNameValuePair("value", Integer.toString(state)));
-        web.getFromURL(URL, params);
+        e = ask(URL, params);
     }
-    /**
-     
-    public boolean isUserLoggedIn(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        int count = db.getRowCount();
-        if(count > 0){
-            // user logged in
-            return true;
-        }
-        return false;
-    }*/
-     
+     private JSONObject ask(final String URL,final List<NameValuePair> p){
+         final CountDownLatch latch = new CountDownLatch(1);
+         Thread uiThread = new HandlerThread("UIHandler"){
+ 	        @Override
+ 	        public void run(){
+ 	            e = web.getFromURL(URL, p);
+ 	            latch.countDown(); // Release await() in the test thread.
+ 	        }
+ 	    };
+ 	    uiThread.start();
+ 	    try {
+ 			latch.await();
+ 		} catch (InterruptedException e1) {
+ 			// TODO Auto-generated catch block
+ 			e1.printStackTrace();
+ 		}
+ 	    return e;
+     }
     /**
     
     public boolean logoutUser(Context context){

@@ -68,29 +68,13 @@ public class DetailFragment extends Fragment {
 	private void chargementEquipements(final String nomPiece) {
 		//Pour chaque equipement, créé une instance de Equipement et ajoute cette instance 
 				//ˆ l'arrayList equip
-				final CountDownLatch latch = new CountDownLatch(1);
-			    final int[] value = new int[1];
-			    Thread uiThread = new HandlerThread("UIHandler"){
-			        @Override
-			        public void run(){
-			            value[0] = 2;
-			            AccountManager account = new AccountManager();
-			            try {
-							equip = account.getEquipement(nomPiece);
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-			            latch.countDown(); // Release await() in the test thread.
-			        }
-			    };
-			    uiThread.start();
-			    try {
-					latch.await();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		AccountManager account = new AccountManager();
+		try {
+			equip = account.getEquipement(nomPiece);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			    
 				/*if(nomPiece.equals("Salon")){
 					Equipement tv = new Equipement("Télévision", true);
