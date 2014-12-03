@@ -7,10 +7,12 @@ import org.json.JSONObject;
 
 
 
+
 //import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +39,8 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		ActionBar bar = getActionBar();
+		bar.hide();
 		
 		login = (Button)findViewById(R.id.loginButton);
         username = (EditText)findViewById(R.id.UserEditText);
