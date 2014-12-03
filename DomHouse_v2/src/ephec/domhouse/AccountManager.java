@@ -52,7 +52,8 @@ public class AccountManager {
             int pin = rec.optInt("pin");
             String name = rec.optString("name");
             boolean value = rec.optBoolean("value");
-            r.add(new Equipement(name, value,pin));
+            boolean editable = rec.optBoolean("editable");
+            r.add(new Equipement(name, value,pin,editable));
         }
         System.out.println(r.get(1).toString());
         return r;

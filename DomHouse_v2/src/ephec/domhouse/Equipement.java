@@ -3,11 +3,13 @@ package ephec.domhouse;
 public class Equipement {
 	private String nom;
 	private boolean etat;
+	private boolean modifiable;
 	private int pin;
 	
-	public Equipement(String nom, boolean etat,int pin){
+	public Equipement(String nom, boolean etat, int pin, boolean modifiable){
 		this.nom = nom;
 		this.etat = etat;
+		this.modifiable = modifiable;
 		this.pin = pin;
 	}
 
@@ -26,10 +28,14 @@ public class Equipement {
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	public int getPin(){
-		return this.pin;
+	public boolean isModifiable() {
+		return modifiable;
 	}
-	public String toString(){
-		return nom;
+	public int getPin(){
+		return pin;
+	}
+
+	public void setModifiable(boolean modifiable) {
+		this.modifiable = modifiable;
 	}
 }

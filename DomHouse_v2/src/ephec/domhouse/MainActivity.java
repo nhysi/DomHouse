@@ -50,8 +50,6 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				if(position == menu.length-1){ //Si appui sur "Deconnexion" qui est dernier élément
-					Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-					startActivity(intent);
 					finish();
 				}
 				else{
