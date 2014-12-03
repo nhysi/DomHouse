@@ -1,8 +1,12 @@
 package ephec.domhouse;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
+import org.json.JSONException;
 
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -67,11 +71,30 @@ public class MainActivity extends Activity {
 	}
 	public void importerPieces(){
 //import du nom de toutes les  pièces et stockage dans menuList
-		menuList.add("Salon");
-		menuList.add("Garage");
-		menuList.add("Salle à manger");
-		menuList.add("Salle de bain");
-		menuList.add("Toilettes");
+		
+		final CountDownLatch latch = new CountDownLatch(1);
+	    final int[] value = new int[1];
+	    Thread uiThread = new HandlerThread("UIHandler"){
+	        @Override
+	        public void run(){
+	            value[0] = 2;
+	            AccountManager account = new AccountManager();
+	            try {
+	        		menuList = 	account.getRoom();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            latch.countDown(); // Release await() in the test thread.
+	        }
+	    };
+	    uiThread.start();
+	    try {
+			latch.await();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

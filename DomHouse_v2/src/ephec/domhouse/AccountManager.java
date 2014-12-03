@@ -8,6 +8,7 @@ import java.util.List;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -58,7 +59,19 @@ public class AccountManager {
         System.out.println(r.get(1).toString());
         return r;
     }
-    
+    public ArrayList<String> getRoom() throws JSONException{
+    	ArrayList<String> menuList = new ArrayList<String>();
+    	List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", "getRoom"));
+        JSONObject e = web.getFromURL(URL, params);
+        //System.out.println(e.toString());
+        JSONArray recs = e.getJSONArray("room");
+        for (int i = 0; i < recs.length(); ++i) {
+            JSONObject rec = recs.getJSONObject(i);
+            menuList.add(rec.optString("name"));
+        }
+    	return menuList;
+    }
     public void setPin(int pin,int state){
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", "setDevice"));
