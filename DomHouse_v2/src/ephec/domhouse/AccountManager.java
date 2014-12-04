@@ -25,7 +25,9 @@ public class AccountManager {
     private Web web;
     private JSONObject e;
      
-    public String URL = "http://www.nhysi.com/api/";// http://domhouse.zapto.org:82/Raspberry/api.php
+    public String URL = "http://domhouse.zapto.org:82/Raspberry/AppAPI.php";
+    // http://domhouse.zapto.org:82/Raspberry/AppAPI.php
+    // http://www.nhysi.com/api/
      
     public AccountManager(){
         web = new Web();
@@ -84,6 +86,7 @@ public class AccountManager {
         params.add(new BasicNameValuePair("tag", "setDevice"));
         params.add(new BasicNameValuePair("pin", Integer.toString(pin)));
         params.add(new BasicNameValuePair("value", Integer.toString(state)));
+        System.out.println(Integer.toString(state));
         e = ask(URL, params);
     }
      private JSONObject ask(final String URL,final List<NameValuePair> p){

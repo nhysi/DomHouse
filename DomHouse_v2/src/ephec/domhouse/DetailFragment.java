@@ -22,6 +22,7 @@ public class DetailFragment extends Fragment {
 	TextView text;
 	Context context;
 	ArrayList<Equipement> equip;
+	AccountManager account;
 
 	public DetailFragment(Context contextAct)
 	{
@@ -34,7 +35,9 @@ public class DetailFragment extends Fragment {
 	
 		text= (TextView) view.findViewById(R.id.detail);
 		text.setText(menu);
-
+		
+		account = new AccountManager();
+		
 		equip = new ArrayList<Equipement>();
 		chargementEquipements(menu);
 
@@ -68,6 +71,8 @@ public class DetailFragment extends Fragment {
 							for(Equipement e : equip){
 								if(e.getNom().equals(buttonView.getText())){
 									System.out.println(e.getPin());
+									System.out.println(isChecked);
+									account.setPin(e.getPin(), isChecked ? 0 : 1);
 								}
 							};
 							

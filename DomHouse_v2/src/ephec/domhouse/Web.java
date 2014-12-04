@@ -52,7 +52,7 @@ public class Web {
             }
             in.close();
             json = sb.toString();
-            Log.e("JSON", json);
+            Log.e("Web.getFromURL : JSON result =", json);
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
