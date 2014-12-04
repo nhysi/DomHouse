@@ -13,6 +13,8 @@ import android.os.HandlerThread;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,7 +41,7 @@ public class DetailFragment extends Fragment {
 		LinearLayout ll = (LinearLayout) view.findViewById(R.id.linLay);
 		for (int i=0; i<equip.size(); i++) {
 
-				if(!equip.get(i).isModifiable()){ //Si l'Žquipement n'est pas modifiable, on crŽe un textview ˆ la place d'un switch
+				if(!equip.get(i).isModifiable()){ //Si l'équipement n'est pas modifiable, on crée un textview à la place d'un switch
 					TextView textview1 = new TextView(context);
 					textview1.setText(equip.get(i).getNom());
 					textview1.setTextSize(25);
@@ -59,7 +61,18 @@ public class DetailFragment extends Fragment {
 					if(equip.get(i).isEtat()) switch1.setChecked(true);
 					else switch1.setChecked(false);
 					ll.addView(switch1); // Attache le Switch au layout parent
-					//ajouter un listener
+					switch1.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							for(Equipement e : equip){
+								if(e.getNom().equals(buttonView.getText())){
+									System.out.println(e.getPin());
+								}
+							};
+							
+						}
+					});//ajouter un listener
 				}
 		}
 
